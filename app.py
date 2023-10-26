@@ -3,16 +3,28 @@ A sample Hello World server.
 """
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template,request,jsonify
 
 # pylint: disable=C0103
 app = Flask(__name__)
 
+@app.route('/sample', methods=['POST'])
+def index():
+    print ("then post")
 
-@app.route('/')
+    # return (results)
+    data = { 
+            "Modules" : 15, 
+            "Subject" : "Data Structures and Algorithms", 
+        } 
+  
+    return jsonify(data)
+
+@app.route('/', methods= ['GET'])
 def hello():
     """Return a friendly HTTP greeting."""
     message = "It's running!"
+    print(message)
 
     """Get Cloud Run environment variables."""
     service = os.environ.get('K_SERVICE', 'Unknown service')
